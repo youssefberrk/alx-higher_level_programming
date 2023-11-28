@@ -1,37 +1,33 @@
 import sys
 
 
-def is_safe(board, row, col, n):
+def is_safe(board, row, col):
     """
     Check if it's safe to place a queen at a given position.
 
     Args:
-        board (list): The chessboard representation.
-        row (int): The current row.
-        col (int): The current column.
-        n (int): The size of the chessboard.
+        board (list): The current state of the chessboard.
+        row (int): The row of the position to check.
+        col (int): The column of the position to check.
 
     Returns:
         bool: True if it's safe to place a queen, False otherwise.
     """
-    for i in range(row):
-        if board[i][col] == 'Q':
+    for i in range(len(board)):
+        if board[row][i] == "Q" or board[i][col] == "Q":
             return False
 
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 'Q':
-            return False
-
-    for i, j in zip(range(row, -1, -1), range(col, n)):
-        if board[i][j] == 'Q':
-            return False
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if (i + j == row + col or i - j == row - col) and board[i][j] == "Q":
+                return False
 
     return True
 
 
 def solve_nqueens(n):
     """
-    Solve the N Queens problem.
+    Solve the N Queens problem using backtracking.
 
     Args:
         n (int): The size of the chessboard.
@@ -39,20 +35,20 @@ def solve_nqueens(n):
     Returns:
         list: A list of all solutions to the N Queens problem.
     """
-    def solve(board, row, n, solutions):
-        if row == n:
-            solutions.append([[i, board[i].index('Q')] for i in range(n)])
+    def solve(board, col):
+        if col == n:
+            solutions.append([board[i][:] for i in range(n)])
             return
 
-        for col in range(n):
-            if is_safe(board, row, col, n):
-                board[row][col] = 'Q'
-                solve(board, row + 1, n, solutions)
-                board[row][col] = '.'
+        for i in range(n):
+            if is_safe(board, i, col):
+                board[i][col] = "Q"
+                solve(board, col + 1)
+                board[i][col] = "."
 
-    board = [['.' for _ in range(n)] for _ in range(n)]
     solutions = []
-    solve(board, 0, n, solutions)
+    chessboard = [["." for _ in range(n)] for _ in range(n)]
+    solve(chessboard, 0)
     return solutions
 
 
@@ -60,7 +56,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
-
+    
     try:
         N = int(sys.argv[1])
         if N < 4:
