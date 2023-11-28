@@ -14,7 +14,6 @@ def is_safe(board, row, col, n):
     Returns:
         bool: True if it's safe to place a queen, False otherwise.
     """
-    # Check if a queen can be placed at board[row][col]
     for i in range(row):
         if board[i][col] == 'Q':
             return False
@@ -42,7 +41,7 @@ def solve_nqueens(n):
     """
     def solve(board, row, n, solutions):
         if row == n:
-            solutions.append(["".join(row) for row in board])
+            solutions.append([[i, board[i].index('Q')] for i in range(n)])
             return
 
         for col in range(n):
@@ -73,6 +72,4 @@ if __name__ == "__main__":
 
     solutions = solve_nqueens(N)
     for solution in solutions:
-        for row in solution:
-            print(row)
-        print()
+        print(solution)
