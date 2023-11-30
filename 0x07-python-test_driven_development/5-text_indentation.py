@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for text_indentation method."""
+"""Defines a text-indentation function."""
 
 
 def text_indentation(text):
@@ -7,7 +7,6 @@ def text_indentation(text):
 
     Args:
         text (str): The text to print.
-
     Raises:
         TypeError: If text is not a string.
     """
