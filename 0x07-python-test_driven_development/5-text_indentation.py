@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for text_indentation method."""
 
+
 def text_indentation(text):
     """Prints text with two new lines after each '.', '?', and ':'.
 
@@ -29,6 +30,7 @@ def text_indentation(text):
                 start += 1
             continue
         start += 1
+
 
 if __name__ == "__main__":
     try:
