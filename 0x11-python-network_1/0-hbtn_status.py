@@ -4,7 +4,6 @@
 - uses urlib package
 """
 
-
 if __name__ == '__main__':
     import urllib.request
 
